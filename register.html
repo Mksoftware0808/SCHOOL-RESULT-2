@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🏫 શાળા રજિસ્ટર | Digital Shala</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: system-ui, -apple-system, 'Segoe UI', 'Noto Sans Gujarati', sans-serif;
+  background: #0f172a;
+  color: #e2e8f0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.card {
+  background: #1e293b;
+  border-radius: 20px;
+  padding: 32px 24px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.45);
+}
+.logo { text-align: center; font-size: 48px; margin-bottom: 6px; }
+h1 { text-align: center; font-size: 22px; color: #fff; margin-bottom: 4px; }
+.sub { text-align: center; color: #94a3b8; font-size: 13px; margin-bottom: 20px; }
+label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; color: #cbd5e1; }
+input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 2px solid #334155;
+  border-radius: 12px;
+  background: #0f172a;
+  color: #fff;
+  font-size: 15px;
+  margin-bottom: 14px;
+  outline: none;
+}
+input:focus { border-color: #10b981; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 480px) { .row { grid-template-columns: 1fr; } }
+button {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 6px;
+}
+button:disabled { opacity: 0.6; cursor: not-allowed; }
+.links { text-align: center; margin-top: 18px; font-size: 13px; color: #94a3b8; }
+.links a { color: #34d399; font-weight: 700; text-decoration: none; }
+.msg { display: none; padding: 12px; border-radius: 10px; margin-bottom: 14px; font-size: 13px; line-height: 1.5; }
+.msg.err { display: block; background: #450a0a; color: #fca5a5; }
+.msg.ok { display: block; background: #052e16; color: #86efac; }
+.note {
+  background: #422006;
+  color: #fde68a;
+  font-size: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  margin-bottom: 14px;
+  line-height: 1.4;
+}
+.toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  background: #0f172a;
+  padding: 4px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+.toggle a {
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  color: #94a3b8;
+}
+.toggle a.active {
+  background: #1e293b;
+  color: #34d399;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">🏫</div>
+  <h1>શાળા રજિસ્ટર</h1>
+  <p class="sub">નવી શાળા નોંધણી – 2 મિનિટમાં</p>
+
+  <div class="toggle">
+    <a href="register.html" class="active">શાળા રજિસ્ટર</a>
+    <a href="index.html">લોગિન કરો</a>
+  </div>
+
+  <div id="msg" class="msg"></div>
+
+  <div class="note">⚠️ શાળાનું નામ ફક્ત <b>ગુજરાતી</b>માં લખો. નોંધણી પછી બદલી શકાશે નહીં.</div>
+
+  <form id="regForm" onsubmit="return doRegister(event)">
+    <label>શાળાનું નામ (ગુજરાતી) *</label>
+    <input type="text" id="schoolName" required placeholder="શ્રી સરસ્વતી પ્રાથમિક શાળા">
+
+    <div class="row">
+      <div>
+        <label>મોબાઇલ (10 અંક) *</label>
+        <input type="tel" id="mobile" required maxlength="10" pattern="[0-9]{10}" placeholder="98XXXXXXXX">
+      </div>
+      <div>
+        <label>UDISE (11 અંક) *</label>
+        <input type="text" id="udise" required maxlength="11" pattern="[0-9]{11}" placeholder="24XXXXXXXXX">
+      </div>
+    </div>
+
+    <label>ઇમેઇલ *</label>
+    <input type="email" id="email" required placeholder="school@gmail.com">
+
+    <div class="row">
+      <div>
+        <label>પાસવર્ડ * (min 8)</label>
+        <input type="password" id="password" required minlength="8" placeholder="ઓછામાં 8 અક્ષર">
+      </div>
+      <div>
+        <label>પાસવર્ડ કન્ફર્મ *</label>
+        <input type="password" id="confirm" required minlength="8" placeholder="ફરીથી લખો">
+      </div>
+    </div>
+
+    <label>રેફરલ કોડ (વૈકલ્પિક)</label>
+    <input type="text" id="referral" placeholder="જો હોય તો">
+
+    <button type="submit" id="btn">✅ શાળા નોંધણી કરો</button>
+  </form>
+
+  <div class="links">
+    પહેલેથી ખાતું છે? <a href="index.html">લોગિન કરો</a>
+  </div>
+</div>
+
+<script>
+function showMsg(text, ok) {
+  var el = document.getElementById('msg');
+  el.className = 'msg ' + (ok ? 'ok' : 'err');
+  el.innerHTML = text;
+}
+
+function doRegister(e) {
+  e.preventDefault();
+  var schoolName = document.getElementById('schoolName').value.trim();
+  var mobile = document.getElementById('mobile').value.trim();
+  var udise = document.getElementById('udise').value.trim();
+  var email = document.getElementById('email').value.trim();
+  var password = document.getElementById('password').value;
+  var confirm = document.getElementById('confirm').value;
+  var referral = document.getElementById('referral').value.trim();
+
+  if (!schoolName) { showMsg('શાળાનું નામ જરૂરી છે', false); return false; }
+  if (!/^[0-9]{10}$/.test(mobile)) { showMsg('મોબાઇલ 10 અંકનો હોવો જોઈએ', false); return false; }
+  if (!/^[0-9]{11}$/.test(udise)) { showMsg('UDISE 11 અંકનો હોવો જોઈએ', false); return false; }
+  if (!email || email.indexOf('@') < 0) { showMsg('માન્ય ઇમેઇલ લખો', false); return false; }
+  if (password.length < 8) { showMsg('પાસવર્ડ ઓછામાં ઓછા 8 અક્ષર', false); return false; }
+  if (!/[A-Za-z]/.test(password) || !/[0-9]/.test(password)) {
+    showMsg('પાસવર્ડમાં અક્ષર અને નંબર બંને જોઈએ', false); return false;
+  }
+  if (password !== confirm) { showMsg('પાસવર્ડ મેળ ખાતા નથી', false); return false; }
+
+  var btn = document.getElementById('btn');
+  btn.disabled = true;
+  btn.textContent = '⏳ નોંધણી થઈ રહી છે...';
+
+  var payload = {
+    school_name: schoolName,
+    udise: udise,
+    phone: mobile,
+    email: email,
+    admin_password: password,
+    admin_user: mobile,
+    referral_code: referral || '',
+    academic_year: '2026-27',
+    principal: '',
+    address: 'ગુજરાત, ભારત',
+    registered_at: new Date().toISOString()
+  };
+
+  if (typeof google !== 'undefined' && google.script && google.script.run) {
+    google.script.run
+      .withSuccessHandler(function(res) {
+        if (res && res.success) {
+          var extra = '';
+          if (res.spreadsheetName) extra += '<br>📊 Sheet: <b>' + res.spreadsheetName + '</b>';
+          if (res.spreadsheetUrl) extra += '<br><a href="' + res.spreadsheetUrl + '" target="_blank" style="color:#86efac">Sheet ખોલો</a>';
+          showMsg('✅ સફળ! હવે મોબાઇલ + પાસવર્ડ વડે લોગિન કરો.' + extra +
+            '<br><br><a href="index.html" style="color:#86efac;font-weight:700">→ લોગિન પર જાઓ</a>', true);
+          document.getElementById('regForm').style.display = 'none';
+        } else {
+          showMsg((res && res.message) || 'નોંધણી નિષ્ફળ', false);
+          btn.disabled = false;
+          btn.textContent = '✅ શાળા નોંધણી કરો';
+        }
+      })
+      .withFailureHandler(function(err) {
+        showMsg('ભૂલ: ' + (err.message || err), false);
+        btn.disabled = false;
+        btn.textContent = '✅ શાળા નોંધણી કરો';
+      })
+      .registerSchool(payload);
+  } else {
+    showMsg('✅ (Demo) નોંધાઈ! <a href="index.html" style="color:#86efac">લોગિન</a>', true);
+    document.getElementById('regForm').style.display = 'none';
+  }
+  return false;
+}
+</script>
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script>
+/* Digital Shala – GitHub Pages bridge: google.script.run → GAS API */
+(function(){
+  if (typeof google === 'undefined') { window.google = {}; }
+  if (!google.script) google.script = {};
+  function runner(){
+    var success = null, failure = null, method = null, args = [];
+    var api = {
+      withSuccessHandler: function(fn){ success = fn; return api; },
+      withFailureHandler: function(fn){ failure = fn; return api; }
+    };
+    // proxy methods
+    ['checkLogin','registerSchool','getDashboardStats','getStudents','getClasses',
+     'getSubjects','getMarks','getToppers','getSchoolInfo','saveSchoolInfo',
+     'addStudent','saveMarks','getIndicators','getResultSheet','initDatabase'].forEach(function(name){
+      Object.defineProperty(api, name, {
+        get: function(){
+          return function(){
+            var a = Array.prototype.slice.call(arguments);
+            callApi(name, a, success, failure);
+          };
+        }
+      });
+    });
+    return api;
+  }
+  function callApi(name, args, success, failure){
+    var payload = { action: mapAction(name) };
+    if (name === 'checkLogin') { payload.mobile = args[0]; payload.password = args[1]; }
+    else if (name === 'registerSchool') { Object.assign(payload, normalizeReg(args[0]||{})); }
+    else if (name === 'getStudents' || name === 'getSubjects' || name === 'getIndicators') { payload.classId = args[0]; }
+    else if (name === 'getMarks') { payload.studentId = args[0]; payload.examType = args[1]; }
+    else if (name === 'getToppers') { payload.classId = args[0]; payload.limit = args[1]; }
+    else if (name === 'getResultSheet') { payload.classId = args[0]; payload.examType = args[1]; }
+    else if (name === 'addStudent' || name === 'saveSchoolInfo') { Object.assign(payload, args[0]||{}); }
+    else if (name === 'saveMarks') { payload.marks = args[0]; }
+    apiCall(payload.action, payload).then(function(r){
+      // normalize for old success handlers expecting success boolean
+      if (r && r.ok !== undefined && r.success === undefined) r.success = r.ok;
+      if (r && r.msg && !r.message) r.message = r.msg;
+      if (success) success(r);
+    }).catch(function(e){ if (failure) failure(e); else alert(e.message||e); });
+  }
+  function mapAction(name){
+    var m = {
+      checkLogin:'login', registerSchool:'register', getDashboardStats:'dashboard',
+      getStudents:'students', getClasses:'classes', getSubjects:'subjects',
+      getMarks:'marks', getToppers:'toppers', getSchoolInfo:'info',
+      saveSchoolInfo:'save-school', addStudent:'add-student', saveMarks:'save-marks',
+      getIndicators:'indicators', getResultSheet:'result', initDatabase:'init'
+    };
+    return m[name] || name;
+  }
+  function normalizeReg(d){
+    return {
+      schoolName: d.school_name || d.schoolName || '',
+      mobile: d.phone || d.mobile || '',
+      udise: d.udise || '',
+      email: d.email || '',
+      password: d.admin_password || d.password || '',
+      academic_year: d.academic_year || '',
+      principal: d.principal || '',
+      address: d.address || '',
+      referral_code: d.referral_code || ''
+    };
+  }
+  google.script.run = runner();
+})();
+</script>
+
+</body>
+</html>

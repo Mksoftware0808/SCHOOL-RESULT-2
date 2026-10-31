@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>શાળા લોગિન | Digital Shala</title>
+<meta name="description" content="Digital Shala — શાળા ખાતામાં સુરક્ષિત પ્રવેશ કરો.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23064e3b'/%3E%3Cpath d='M16 7L5 13l11 6 11-6z' fill='%2334d399'/%3E%3Cpath d='M8 15.5v5.5c0 2 3.6 4 8 4s8-2 8-4v-5.5l-8 4.3z' fill='%23059669'/%3E%3Ccircle cx='24.5' cy='13.5' r='1.5' fill='%2338bdf8'/%3E%3Cline x1='24.5' y1='15' x2='24.5' y2='21' stroke='%2338bdf8' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Vadodara:wght@300;400;500;600;700&family=Noto+Sans+Gujarati:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+
+<style>
+/* ── Content & Structure Copy Protection ── */
+body, html, main, nav, header, aside, section, article, div, table, th, td, tr, p, h1, h2, h3, h4, h5, h6, span, a, label, img, svg {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+  -webkit-touch-callout: none !important;
+}
+input, textarea, [contenteditable="true"] {
+  -webkit-user-select: text !important;
+  -moz-user-select: text !important;
+  -ms-user-select: text !important;
+  user-select: text !important;
+}
+img, svg, table, a {
+  -webkit-user-drag: none !important;
+  user-drag: none !important;
+}
+
+:root {
+  --primary: #059669;
+  --primary-dark: #047857;
+  --primary-deep: #064e3b;
+  --primary-light: #10b981;
+  --accent-sky: #0ea5e9;
+  --accent-amber: #f59e0b;
+  --navy-900: #0b1329;
+  --navy-800: #0f1c3f;
+  --slate-50: #f8fafc;
+  --slate-100: #f1f5f9;
+  --slate-200: #e2e8f0;
+  --slate-300: #cbd5e1;
+  --slate-400: #94a3b8;
+  --slate-500: #64748b;
+  --slate-700: #334155;
+  --slate-900: #0f172a;
+  --font-main: 'Hind Vadodara', 'Noto Sans Gujarati', system-ui, sans-serif;
+  --font-display: 'Plus Jakarta Sans', 'Hind Vadodara', sans-serif;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-main);
+  background-color: #0b1329;
+  background-image: 
+    radial-gradient(circle at 15% 15%, rgba(16, 185, 129, 0.14) 0%, transparent 45%),
+    radial-gradient(circle at 85% 85%, rgba(14, 165, 233, 0.12) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.98) 0%, #080d1a 100%);
+  color: var(--slate-900);
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 28px 16px 40px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.login-shell {
+  width: 100%;
+  max-width: 960px;
+  background: #ffffff;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.12);
+  display: flex;
+  position: relative;
+  margin: auto 0;
+}
+
+.login-left {
+  flex: 1.05;
+  background: linear-gradient(145deg, #091a2e 0%, #063c32 50%, #044e40 100%);
+  padding: 44px 40px;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+.login-left::before {
+  content: '';
+  position: absolute;
+  top: -90px; right: -90px;
+  width: 280px; height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.28) 0%, transparent 70%);
+  pointer-events: none;
+}
+.login-left::after {
+  content: '';
+  position: absolute;
+  bottom: -80px; left: -80px;
+  width: 260px; height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.24) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.brand-row { display: flex; align-items: center; gap: 14px; position: relative; z-index: 2; margin-bottom: 24px; }
+.brand-icon {
+  width: 48px; height: 48px; border-radius: 14px;
+  background: linear-gradient(135deg, #10b981, #047857);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 20px rgba(5, 150, 105, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.brand-icon svg { width: 26px; height: 26px; color: #fff; }
+.brand-text-name { font-family: var(--font-display); font-size: 20px; font-weight: 800; letter-spacing: -0.02em; color: #ffffff; }
+.brand-text-sub { font-size: 11.5px; color: #38bdf8; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(8px); padding: 5px 12px; border-radius: 99px;
+  font-size: 11.5px; font-weight: 700; color: #34d399; margin-bottom: 14px;
+  position: relative; z-index: 2;
+}
+.hero-badge svg { width: 14px; height: 14px; }
+.hero-title { font-size: 26px; font-weight: 800; line-height: 1.3; margin-bottom: 12px; color: #ffffff; position: relative; z-index: 2; }
+.hero-desc { font-size: 13.5px; color: rgba(226, 232, 240, 0.85); line-height: 1.6; margin-bottom: 28px; position: relative; z-index: 2; }
+
+.hero-features { display: flex; flex-direction: column; gap: 12px; position: relative; z-index: 2; margin-bottom: 24px; }
+.hero-feat-item { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; color: rgba(241, 245, 249, 0.95); }
+.feat-icon-check {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: rgba(16, 185, 129, 0.22); border: 1px solid rgba(52, 211, 153, 0.4);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #34d399;
+}
+.feat-icon-check svg { width: 12px; height: 12px; }
+
+.hero-metrics {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.12);
+  position: relative; z-index: 2;
+}
+.metric-col strong { display: block; font-size: 18px; font-weight: 800; color: #fff; font-family: var(--font-display); }
+.metric-col span { font-size: 11px; color: rgba(148, 163, 184, 0.9); font-weight: 500; }
+
+.login-right {
+  flex: 1; padding: 44px 40px; background: #ffffff;
+  display: flex; flex-direction: column; justify-content: center;
+}
+
+/* Auth Mode Segmented Pill Toggle */
+.auth-toggle-wrap {
+  margin-bottom: 22px;
+}
+.auth-toggle-pill {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #f1f5f9;
+  padding: 4px;
+  border-radius: 14px;
+  border: 1.5px solid #e2e8f0;
+  gap: 6px;
+}
+.auth-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #64748b;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.auth-toggle-btn:hover {
+  color: #0f172a;
+  background: rgba(255, 255, 255, 0.7);
+}
+.auth-toggle-btn.active {
+  background: #ffffff;
+  color: #059669;
+  font-weight: 800;
+  box-shadow: 0 3px 10px rgba(15, 23, 42, 0.08);
+  border-color: rgba(5, 150, 105, 0.22);
+}
+.auth-toggle-btn svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: currentColor;
+}
+.auth-toggle-btn.active svg {
+  color: #059669;
+}
+@media (max-width: 640px) {
+  .auth-toggle-wrap {
+    margin-bottom: 18px;
+  }
+  .auth-toggle-btn {
+    padding: 9px 10px;
+    font-size: 12.5px;
+    gap: 6px;
+  }
+}
+
+
+.form-header { margin-bottom: 24px; }
+.form-header-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #ecfdf5; color: #059669; font-size: 11px; font-weight: 700;
+  padding: 3px 10px; border-radius: 99px; margin-bottom: 10px; border: 1px solid #d1fae5;
+}
+.form-header h1 { font-size: 24px; font-weight: 800; color: #0f172a; letter-spacing: -0.02em; }
+.form-header p { font-size: 13.5px; color: #64748b; margin-top: 4px; font-weight: 500; }
+
+.alert-box {
+  border-radius: 14px; padding: 12px 16px; font-size: 13px; font-weight: 600;
+  margin-bottom: 20px; display: flex; align-items: flex-start; gap: 10px; line-height: 1.45;
+}
+.alert-box.error { background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; }
+.alert-box.success { background: #ecfdf5; border: 1px solid #a7f3d0; color: #065f46; }
+.alert-box.info { background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; }
+.alert-box svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px; }
+
+.form-group { margin-bottom: 18px; }
+.label-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.form-label { font-size: 12.5px; font-weight: 700; color: #334155; display: block; }
+.forgot-link { font-size: 12px; font-weight: 700; color: #0284c7; text-decoration: none; transition: color 0.15s ease; }
+.forgot-link:hover { color: #0369a1; text-decoration: underline; }
+
+.input-container { position: relative; display: flex; align-items: center; }
+.input-field {
+  width: 100%; padding: 12px 14px 12px 42px; font-size: 14px; font-family: inherit;
+  font-weight: 500; color: #0f172a; background: #f8fafc; border: 1.5px solid #e2e8f0;
+  border-radius: 14px; outline: none; transition: all 0.2s var(--ease);
+}
+.input-field.with-toggle { padding-right: 44px; }
+.input-field:hover { border-color: #cbd5e1; }
+.input-field:focus { background: #ffffff; border-color: #10b981; box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15); }
+.input-field::placeholder { color: #94a3b8; font-weight: 400; }
+
+.input-icon-lead {
+  position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+  width: 18px; height: 18px; color: #94a3b8; pointer-events: none;
+  display: flex; align-items: center; justify-content: center;
+}
+.input-icon-lead svg { width: 18px; height: 18px; }
+
+.btn-toggle-pw {
+  position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+  width: 32px; height: 32px; border-radius: 8px; border: none; background: transparent;
+  color: #64748b; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s ease;
+}
+.btn-toggle-pw:hover { background: #e2e8f0; color: #0f172a; }
+.btn-toggle-pw svg { width: 18px; height: 18px; }
+
+.remember-row { margin: 12px 0 10px; }
+.remember-card {
+  display: flex; align-items: center; gap: 9px; cursor: pointer; user-select: none;
+  background: #f8fafc; padding: 9px 12px; border-radius: 12px; border: 1.5px solid #e2e8f0;
+  transition: all 0.15s ease;
+}
+.remember-card:hover { background: #f0fdf4; border-color: #86efac; }
+.remember-card input[type="checkbox"] { width: 16px; height: 16px; accent-color: #059669; cursor: pointer; flex-shrink: 0; }
+.remember-label-text { font-size: 13px; font-weight: 600; color: #334155; display: inline-flex; align-items: center; gap: 7px; }
+.remember-label-text svg { width: 15px; height: 15px; color: #059669; flex-shrink: 0; }
+
+.terms-row { margin: 14px 0 22px; }
+.checkbox-card {
+  display: flex; align-items: flex-start; gap: 10px; cursor: pointer; user-select: none;
+  background: #f8fafc; padding: 10px 14px; border-radius: 12px; border: 1px solid #e2e8f0;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.checkbox-card:hover { background: #f1f5f9; border-color: #cbd5e1; }
+.checkbox-card input[type="checkbox"] { width: 17px; height: 17px; margin-top: 2px; accent-color: #059669; cursor: pointer; flex-shrink: 0; }
+.terms-label-text { font-size: 12.5px; color: #475569; line-height: 1.45; font-weight: 500; }
+.terms-label-text a { color: #059669; font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
+.terms-label-text a:hover { color: #047857; }
+
+.btn-submit-login {
+  width: 100%; padding: 13px 20px;
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  color: #ffffff; font-size: 15px; font-weight: 700; font-family: inherit;
+  border: none; border-radius: 14px; cursor: pointer; display: flex;
+  align-items: center; justify-content: center; gap: 8px;
+  box-shadow: 0 8px 20px -4px rgba(5, 150, 105, 0.4); transition: all 0.2s var(--ease);
+}
+.btn-submit-login:hover {
+  transform: translateY(-2px); box-shadow: 0 12px 24px -4px rgba(5, 150, 105, 0.5);
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+.btn-submit-login:active { transform: translateY(0); }
+.btn-submit-login svg { width: 18px; height: 18px; }
+
+.form-footer-links { margin-top: 20px; text-align: center; font-size: 13px; color: #64748b; font-weight: 500; }
+.form-footer-links a { color: #059669; font-weight: 700; text-decoration: none; }
+.form-footer-links a:hover { text-decoration: underline; }
+
+.trust-badge-footer {
+  margin-top: 18px; padding-top: 16px; border-top: 1px solid #f1f5f9;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  font-size: 11.5px; color: #94a3b8; font-weight: 600;
+}
+.trust-badge-footer svg { width: 14px; height: 14px; color: #10b981; }
+
+/* ─────────────────────────────────────
+   FORGOT PASSWORD MODAL (Enhanced)
+   ───────────────────────────────────── */
+.modal-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(10, 15, 30, 0.65);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  z-index: 100; display: flex; align-items: center; justify-content: center;
+  padding: 16px; animation: fadeIn 0.2s ease;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.modal-dialog {
+  background: #ffffff; width: 100%; max-width: 480px; border-radius: 26px;
+  padding: 30px 28px 24px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+  position: relative; animation: scaleUp 0.25s var(--ease);
+  max-height: 90vh; overflow-y: auto;
+}
+@keyframes scaleUp { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+.modal-close-btn {
+  position: absolute; top: 18px; right: 18px; width: 32px; height: 32px;
+  border-radius: 10px; background: #f1f5f9; border: none; font-size: 18px;
+  font-weight: 700; color: #64748b; cursor: pointer; display: flex;
+  align-items: center; justify-content: center; transition: all 0.15s ease;
+}
+.modal-close-btn:hover { background: #e2e8f0; color: #0f172a; }
+
+/* Modal Segmented Tabs */
+.modal-tabs {
+  display: flex; background: #f1f5f9; border-radius: 14px; padding: 4px;
+  margin-bottom: 20px; gap: 4px;
+}
+.modal-tab-btn {
+  flex: 1; padding: 9px 12px; font-size: 12.5px; font-weight: 700;
+  border-radius: 10px; border: none; background: transparent; color: #64748b;
+  cursor: pointer; transition: all 0.2s ease; font-family: inherit;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.modal-tab-btn.active {
+  background: #ffffff; color: #0f172a; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+.modal-tab-btn.highlight {
+  color: #b45309;
+}
+.modal-tab-btn.active.highlight {
+  color: #d97706;
+}
+.modal-tab-btn.tab-locked {
+  background: #f8fafc;
+  color: #94a3b8;
+  cursor: not-allowed;
+  opacity: 0.8;
+  border: 1px dashed #cbd5e1;
+}
+.modal-tab-btn.tab-locked:hover {
+  background: #f1f5f9;
+  color: #64748b;
+}
+.badge-locked {
+  background: #fef2f2;
+  color: #b91c1c;
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 99px;
+  border: 1px solid #fecaca;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin-left: 3px;
+}
+.badge-unlocked {
+  background: #ecfdf5;
+  color: #047857;
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 99px;
+  border: 1px solid #a7f3d0;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin-left: 3px;
+}
+@keyframes shakeAnim {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+.shake-anim {
+  animation: shakeAnim 0.4s ease;
+}
+
+.modal-title { font-size: 19px; font-weight: 800; color: #0f172a; letter-spacing: -0.01em; }
+.modal-desc { font-size: 13px; color: #64748b; margin-top: 4px; line-height: 1.5; margin-bottom: 18px; }
+
+/* Cooldown pill & counter */
+.cooldown-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #fffbeb; border: 1px solid #fde68a; color: #b45309;
+  padding: 4px 10px; border-radius: 99px; font-size: 11.5px; font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.btn-modal-submit {
+  width: 100%; padding: 12.5px; background: linear-gradient(135deg, #0284c7, #0369a1);
+  color: #fff; font-size: 14px; font-weight: 700; font-family: inherit; border: none;
+  border-radius: 12px; cursor: pointer; transition: all 0.15s ease;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.3); display: flex; align-items: center;
+  justify-content: center; gap: 8px;
+}
+.btn-modal-submit:hover:not(:disabled) {
+  background: linear-gradient(135deg, #0369a1, #075985); transform: translateY(-1px);
+}
+.btn-modal-submit:disabled {
+  opacity: 0.65; cursor: not-allowed; transform: none; box-shadow: none;
+  background: #94a3b8;
+}
+
+.btn-fallback-submit {
+  width: 100%; padding: 12.5px; background: linear-gradient(135deg, #059669, #047857);
+  color: #fff; font-size: 14px; font-weight: 700; font-family: inherit; border: none;
+  border-radius: 12px; cursor: pointer; transition: all 0.15s ease;
+  box-shadow: 0 4px 14px rgba(5, 150, 105, 0.3); display: flex; align-items: center;
+  justify-content: center; gap: 8px;
+}
+.btn-fallback-submit:hover {
+  background: linear-gradient(135deg, #10b981, #059669); transform: translateY(-1px);
+}
+
+.modal-alt-support {
+  margin-top: 18px; padding-top: 14px; border-top: 1px solid #f1f5f9; text-align: center;
+}
+.modal-alt-support span { display: block; font-size: 11.5px; color: #64748b; margin-bottom: 8px; font-weight: 600; }
+.btn-whatsapp-support {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  background: #25d366; color: #ffffff; padding: 9px 18px; border-radius: 99px;
+  font-size: 13px; font-weight: 700; text-decoration: none;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3); transition: transform 0.15s ease;
+}
+.btn-whatsapp-support:hover { transform: translateY(-1px); background: #22c35e; }
+.btn-whatsapp-support svg { width: 16px; height: 16px; }
+
+@media (max-width: 820px) {
+  .login-left { display: none; }
+  .login-shell { max-width: 440px; }
+  .login-right { padding: 32px 24px; }
+  body { padding: 12px; }
+}
+</style>
+</head>
+<body>
+
+<div class="login-shell">
+
+  <!-- ══ Left Showcase Panel (Desktop) ══ -->
+  <div class="login-left">
+    <div>
+      <div class="brand-row">
+        <div class="brand-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        </div>
+        <div>
+          <div class="brand-text-name">Digital Shala</div>
+          <div class="brand-text-sub">Smart School Platform</div>
+        </div>
+      </div>
+
+      <div class="hero-badge">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.8l-6.2 4.5 2.4-7.4L2 9.4h7.6z"/></svg>
+        <span>ગુજરાતની અગ્રેસર સ્કૂલ સિસ્ટમ</span>
+      </div>
+
+      <h2 class="hero-title">સ્માર્ટ અને ઝડપી શાળા વ્યવસ્થાપન</h2>
+      <p class="hero-desc">વિદ્યાર્થી નોંધણી, ગુણ એન્ટ્રી, પત્રક B, C અને F/G પરિણામ પત્રકોની આપોઆપ ગણતરી અને એક ક્લિકમાં PDF ડાઉનલોડ.</p>
+
+      <div class="hero-features">
+        <div class="hero-feat-item">
+          <span class="feat-icon-check">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </span>
+          <span>સરળ Excel વિદ્યાર્થી આયાત & ધોરણ વાઇઝ લિસ્ટ</span>
+        </div>
+        <div class="hero-feat-item">
+          <span class="feat-icon-check">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </span>
+          <span>કુલ ગુણ એન્ટ્રી & આપોઆપ 40+40+20 ગુણ વિતરણ</span>
+        </div>
+        <div class="hero-feat-item">
+          <span class="feat-icon-check">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </span>
+          <span>પત્રક B, C અને F/G સરકારી ફોર્મેટમાં તૈયાર</span>
+        </div>
+        <div class="hero-feat-item">
+          <span class="feat-icon-check">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </span>
+          <span>વાલીઓને સીધું WhatsApp પરિણામ મોકલવાની સુવિધા</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-metrics">
+      <div class="metric-col">
+        <strong>500+</strong>
+        <span>જોડાયેલ શાળાઓ</span>
+      </div>
+      <div class="metric-col">
+        <strong>1 લાખ+</strong>
+        <span>વિદ્યાર્થી રેકોર્ડ</span>
+      </div>
+      <div class="metric-col">
+        <strong>100%</strong>
+        <span>સુરક્ષિત ડેટા</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ Right Form Panel ══ -->
+  <div class="login-right">
+
+    <!-- Auth Mode Segmented Toggle (Register First <-> Login Second) -->
+    <div class="auth-toggle-wrap">
+      <div class="auth-toggle-pill" role="tablist" aria-label="નોંધણી અથવા પ્રવેશ પસંદ કરો">
+        <a href="register.html" class="auth-toggle-btn" role="tab" aria-selected="false">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="17" y1="11" x2="23" y2="11"/></svg>
+          <span>શાળા રજિસ્ટર</span>
+        </a>
+        <a href="index.html" class="auth-toggle-btn active" role="tab" aria-selected="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+          <span>લોગિન કરો</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="form-header">
+      <div class="form-header-badge">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span>સુરક્ષિત શાળા લોગિન</span>
+      </div>
+      <h1>પ્રવેશ કરો</h1>
+      <p>તમારી શાળાના ખાતામાં પ્રવેશ માટે વિગતો ભરો</p>
+    </div>
+
+    <!-- Login Error Alert -->
+    
+    <!-- Login Success Alert -->
+    
+    <!-- Login Form -->
+    <form method="GET" onsubmit="return handleLogin(event)" id="loginForm" autocomplete="on">
+      <input type="hidden" name="csrf_token" value="25c328b049b731cd522b4fc23c5fb9c68e120a752afa2b0ba79370b8c853d991">      <input type="hidden" name="action" value="login">
+
+      <!-- Mobile / Email Identity -->
+      <div class="form-group">
+        <label class="form-label" for="loginIdentity">મોબાઇલ નંબર / ઇમેઇલ / યુઝર ID</label>
+        <div class="input-container">
+          <span class="input-icon-lead">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </span>
+          <input 
+            type="text" 
+            id="loginIdentity" 
+            name="identity" 
+            required 
+            class="input-field" 
+            placeholder="દા.ત. 98XXXXXXXX, school@gmail.com અથવા પાર્ટનર ID" 
+            value=""
+            autocomplete="username"
+          >
+        </div>
+      </div>
+
+      <!-- Password with Show/Hide Toggle & Forgot Password Link -->
+      <div class="form-group">
+        <div class="label-row">
+          <label class="form-label" for="loginPassword">પાસવર્ડ</label>
+          <a href="javascript:void(0)" onclick="openForgotModal()" class="forgot-link">પાસવર્ડ ભૂલી ગયા?</a>
+        </div>
+        <div class="input-container">
+          <span class="input-icon-lead">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </span>
+          <input 
+            type="password" 
+            id="loginPassword" 
+            name="password" 
+            required 
+            class="input-field with-toggle" 
+            placeholder="••••••••"
+            autocomplete="current-password"
+          >
+          <button 
+            type="button" 
+            id="togglePwBtn" 
+            class="btn-toggle-pw" 
+            onclick="toggleLoginPassword()" 
+            title="પાસવર્ડ જુઓ / છુપાવો"
+            aria-label="Toggle Password Visibility"
+          >
+            <svg class="eye-open" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+            <svg class="eye-off" style="display:none;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Remember Username Checkbox -->
+      <div class="remember-row">
+        <label class="remember-card" for="rememberPasswordCheckbox">
+          <input type="checkbox" name="remember_password" id="rememberPasswordCheckbox" value="1" >
+          <span class="remember-label-text">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            મને યાદ રાખો (Remember Me)
+          </span>
+        </label>
+      </div>
+
+      <!-- Accept Privacy Policy & Terms Conditions Checkbox -->
+      <div class="terms-row">
+        <label class="checkbox-card" for="termsAgreeCheckbox">
+          <input type="checkbox" name="terms_agree" id="termsAgreeCheckbox" required checked>
+          <span class="terms-label-text">
+            હું પોર્ટલના <a href="#" target="_blank" onclick="event.stopPropagation()">નિયમો અને શરતો (Terms)</a> તથા <a href="#" target="_blank" onclick="event.stopPropagation()">પ્રાઇવસી પોલિસી (Privacy)</a> વાંચીને સ્વીકારું છું.
+          </span>
+        </label>
+      </div>
+
+      <!-- Submit Login Button -->
+      <button type="submit" class="btn-submit-login">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+        <span>Login</span>
+      </button>
+    </form>
+
+    <!-- Footer Links -->
+    <div class="form-footer-links">
+      <div style="margin-bottom: 7px;">
+        નવું ખાતું બનાવવું છે? <a href="register.html">પ્રથમ વાર શાળા રજિસ્ટર કરો</a>
+      </div>
+      <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+        <a href="Dashboard.html">મુખ્ય પાનું</a>
+        <span style="color: #cbd5e1;">·</span>
+        <a href="Dashboard.html" style="color:#059669; font-weight:700; display: inline-flex; align-items: center; gap: 5px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          ઉપયોગ માર્ગદર્શિકા
+        </a>
+      </div>
+    </div>
+
+    <!-- Security Trust Note -->
+    <div class="trust-badge-footer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+      <span>256-બીટ SSL એન્ક્રિપ્શન સાથે ડેટા સુરક્ષિત</span>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     FORGOT PASSWORD MODAL (Two-Stage Recovery)
+     ══════════════════════════════════════════ -->
+<div id="forgotModal" class="modal-backdrop" style="display: none;" onclick="handleBackdropClick(event)">
+  <div class="modal-dialog" role="dialog" aria-modal="true">
+    <button type="button" class="modal-close-btn" onclick="closeForgotModal()" aria-label="Close modal">&times;</button>
+    
+    <!-- Modal Tabs -->
+    <div class="modal-tabs">
+      <button type="button" id="tabBtnEmail" class="modal-tab-btn active" onclick="switchModalTab('email')">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <span>1. ઇમેઇલ લિંક</span>
+      </button>
+      <button 
+        type="button" 
+        id="tabBtnFallback" 
+        class="modal-tab-btn tab-locked" 
+        onclick="handleFallbackTabClick()"
+        title="ઇમેઇલ દ્વારા 3 પ્રયાસ પછી જ ખૂલશે"
+      >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;color:#94a3b8;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span>2. U-DISE ચકાસણી</span>
+          <span class="badge-locked">🔒 લૉક (3 બાકી)</span>
+              </button>
+    </div>
+
+    <!-- ─────────────────────────────────────────
+         TAB 1: EMAIL RESET LINK (30s limit, 3 tries)
+         ───────────────────────────────────────── -->
+    <div id="tabContentEmail" style="display: block;">
+      <h3 class="modal-title">ઇમેઇલ દ્વારા પાસવર્ડ રીસેટ</h3>
+      <p class="modal-desc">શાળાનો રજિસ્ટર્ડ ઇમેઇલ દાખલ કરો. તમારા ઇમેઇલ પર સુરક્ષિત પાસવર્ડ રીસેટ લિંક મોકલવામાં આવશે.</p>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+        <span class="cooldown-pill">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          ઇમેઇલ પ્રયાસ: <strong>0 / 3</strong>
+        </span>
+                <span style="font-size:11.5px;color:#64748b;display:inline-flex;align-items:center;gap:4px;background:#f1f5f9;padding:4px 9px;border-radius:8px;">
+          🔒 બીજો વિકલ્પ 3 પ્રયાસ પછી જ ખૂલશે (બાકી: 3)
+        </span>
+              </div>
+
+      <!-- Lock Notice (displayed if user clicks the locked tab) -->
+      <div id="lockAlertNotice" class="alert-box error" style="display:none;margin-bottom:14px;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <div>
+          <strong>આ વિકલ્પ હાલમાં લૉક છે!</strong><br>
+          જ્યાં સુધી તમે ઇમેઇલ મોકલવાની <b>3 વાર કોશિશ</b> ન કરો ત્યાં સુધી આ વિકલ્પ ખૂલશે નહીં. હાલમાં તમારા <b>0 / 3</b> પ્રયાસ થયા છે.
+        </div>
+      </div>
+
+      <!-- Alerts for Tab 1 -->
+      
+      
+      
+      <form method="GET" onsubmit="return handleLogin(event)" id="emailResetForm">
+        <input type="hidden" name="csrf_token" value="25c328b049b731cd522b4fc23c5fb9c68e120a752afa2b0ba79370b8c853d991">        <input type="hidden" name="action" value="send_reset_link">
+
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label class="form-label" for="forgotEmailInput">શાળાનો રજિસ્ટર્ડ ઇમેઇલ એડ્રેસ</label>
+          <div class="input-container">
+            <span class="input-icon-lead">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </span>
+            <input 
+              type="email" 
+              id="forgotEmailInput" 
+              name="forgot_email" 
+              required 
+              class="input-field" 
+              placeholder="school@gmail.com" 
+              value=""
+            >
+          </div>
+        </div>
+
+        <button type="submit" id="btnEmailSubmit" class="btn-modal-submit">
+          <span id="btnEmailText">ઇમેઇલ પર રીસેટ લિંક મોકલો</span>
+        </button>
+      </form>
+    </div>
+
+    <!-- ─────────────────────────────────────────
+         TAB 2: FALLBACK INSTANT RESET (UDISE + Mobile + Email)
+         ───────────────────────────────────────── -->
+    <div id="tabContentFallback" style="display: none;">
+      
+      <div class="alert-box success" style="margin-bottom: 16px;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="20 6 9 17 4 12"/></svg>
+        <div>
+          <strong>🎉 વિકલ્પ 2 અનલૉક થઈ ગયો છે!</strong><br>
+          3 ઇમેઇલ પ્રયાસ પૂર્ણ થયા હોવાથી હવે તમે U-DISE કોડ, મોબાઇલ અને ઇમેઇલની વિગતો ચકાસીને સીધો નવો પાસવર્ડ સેટ કરી શકો છો.
+        </div>
+      </div>
+
+      <h3 class="modal-title">તાત્કાલિક પાસવર્ડ રીસેટ</h3>
+      <p class="modal-desc">નીચે તમારી શાળાનો સાચો U-DISE કોડ, મોબાઇલ નંબર અને ઇમેઇલ દાખલ કરીને સીધો નવો પાસવર્ડ સેટ કરો.</p>
+
+      <!-- Alerts for Tab 2 -->
+      
+      <form method="GET" onsubmit="return handleLogin(event)" id="fallbackResetForm">
+        <input type="hidden" name="csrf_token" value="25c328b049b731cd522b4fc23c5fb9c68e120a752afa2b0ba79370b8c853d991">        <input type="hidden" name="action" value="fallback_reset">
+
+        <!-- UDISE Code -->
+        <div class="form-group" style="margin-bottom: 12px;">
+          <label class="form-label" for="fallbackUdiseInput">1. શાળા U-DISE કોડ</label>
+          <div class="input-container">
+            <span class="input-icon-lead">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            </span>
+            <input 
+              type="text" 
+              id="fallbackUdiseInput" 
+              name="fallback_udise" 
+              required 
+              class="input-field" 
+              placeholder="દા.ત. 24XXXXXXXXX (11 અંક)" 
+              value=""
+            >
+          </div>
+        </div>
+
+        <!-- Mobile Number -->
+        <div class="form-group" style="margin-bottom: 12px;">
+          <label class="form-label" for="fallbackMobileInput">2. રજિસ્ટર્ડ મોબાઇલ નંબર</label>
+          <div class="input-container">
+            <span class="input-icon-lead">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </span>
+            <input 
+              type="tel" 
+              id="fallbackMobileInput" 
+              name="fallback_mobile" 
+              required 
+              maxlength="10"
+              class="input-field" 
+              placeholder="10 અંકનો મોબાઇલ નંબર" 
+              value=""
+            >
+          </div>
+        </div>
+
+        <!-- Email Address -->
+        <div class="form-group" style="margin-bottom: 12px;">
+          <label class="form-label" for="fallbackEmailInput">3. રજિસ્ટર્ડ ઇમેઇલ એડ્રેસ</label>
+          <div class="input-container">
+            <span class="input-icon-lead">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </span>
+            <input 
+              type="email" 
+              id="fallbackEmailInput" 
+              name="fallback_email" 
+              required 
+              class="input-field" 
+              placeholder="school@gmail.com" 
+              value=""
+            >
+          </div>
+        </div>
+
+        <!-- New Password -->
+        <div class="form-group" style="margin-bottom: 12px;">
+          <label class="form-label" for="fallbackNewPassword">4. નવો પાસવર્ડ</label>
+          <div class="input-container">
+            <span class="input-icon-lead">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </span>
+            <input 
+              type="password" 
+              id="fallbackNewPassword" 
+              name="fallback_new_password" 
+              required 
+              minlength="6"
+              class="input-field with-toggle" 
+              placeholder="ઓછામાં ઓછા 6 અક્ષર"
+            >
+            <button type="button" class="btn-toggle-pw" onclick="toggleInputVisibility('fallbackNewPassword', this)">
+              <svg class="eye-open" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg class="eye-off" style="display:none;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label class="form-label" for="fallbackConfirmPassword">5. નવો પાસવર્ડ કન્ફર્મ કરો</label>
+          <div class="input-container">
+            <span class="input-icon-lead">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </span>
+            <input 
+              type="password" 
+              id="fallbackConfirmPassword" 
+              name="fallback_confirm_password" 
+              required 
+              minlength="6"
+              class="input-field with-toggle" 
+              placeholder="પાસવર્ડ ફરીથી દાખલ કરો"
+            >
+            <button type="button" class="btn-toggle-pw" onclick="toggleInputVisibility('fallbackConfirmPassword', this)">
+              <svg class="eye-open" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg class="eye-off" style="display:none;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-fallback-submit">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:16px;height:16px;"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>ચકાસીને પાસવર્ડ બદલો</span>
+        </button>
+      </form>
+    </div>
+
+    <!-- WhatsApp Support Option -->
+    <div class="modal-alt-support">
+      <span>અથવા સીધો એડમિન સપોર્ટ મેળવો:</span>
+      <a 
+        href="https://wa.me/919016305029?text=%E0%AA%A8%E0%AA%AE%E0%AA%B8%E0%AB%8D%E0%AA%A4%E0%AB%87%2C+Digital+Shala+%E0%AA%AA%E0%AB%8B%E0%AA%B0%E0%AB%8D%E0%AA%9F%E0%AA%B2%E0%AA%AE%E0%AA%BE%E0%AA%82+%E0%AA%AE%E0%AA%BE%E0%AA%B0%E0%AB%80+%E0%AA%B6%E0%AA%BE%E0%AA%B3%E0%AA%BE%E0%AA%A8%E0%AB%8B+%E0%AA%AA%E0%AA%BE%E0%AA%B8%E0%AA%B5%E0%AA%B0%E0%AB%8D%E0%AA%A1+%E0%AA%B0%E0%AB%80%E0%AA%B8%E0%AB%87%E0%AA%9F+%E0%AA%95%E0%AA%B0%E0%AA%B5%E0%AA%BE%E0%AA%AE%E0%AA%BE%E0%AA%82+%E0%AA%B8%E0%AA%B9%E0%AA%BE%E0%AA%AF+%E0%AA%9C%E0%AB%8B%E0%AA%88%E0%AA%8F+%E0%AA%9B%E0%AB%87." 
+        target="_blank" 
+        class="btn-whatsapp-support"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        WhatsApp સપોર્ટ (9016305029)
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+// 1. Show/Hide Password for Login
+function toggleLoginPassword() {
+  const pw = document.getElementById('loginPassword');
+  const btn = document.getElementById('togglePwBtn');
+  if (!pw || !btn) return;
+  const openIcon = btn.querySelector('.eye-open');
+  const offIcon = btn.querySelector('.eye-off');
+  if (pw.type === 'password') {
+    pw.type = 'text';
+    openIcon.style.display = 'none';
+    offIcon.style.display = 'block';
+  } else {
+    pw.type = 'password';
+    openIcon.style.display = 'block';
+    offIcon.style.display = 'none';
+  }
+}
+
+// 2. Generic Toggle for any input field
+function toggleInputVisibility(inputId, btn) {
+  const inp = document.getElementById(inputId);
+  if (!inp || !btn) return;
+  const openIcon = btn.querySelector('.eye-open');
+  const offIcon = btn.querySelector('.eye-off');
+  if (inp.type === 'password') {
+    inp.type = 'text';
+    openIcon.style.display = 'none';
+    offIcon.style.display = 'block';
+  } else {
+    inp.type = 'password';
+    openIcon.style.display = 'block';
+    offIcon.style.display = 'none';
+  }
+}
+
+// 3. Modal Tabs Switcher with Strict Lock Enforcement
+let isFallbackUnlocked = false;
+
+function handleFallbackTabClick() {
+  if (!isFallbackUnlocked) {
+    const lockNotice = document.getElementById('lockAlertNotice');
+    if (lockNotice) {
+      lockNotice.style.display = 'flex';
+      lockNotice.classList.remove('shake-anim');
+      void lockNotice.offsetWidth; // trigger reflow
+      lockNotice.classList.add('shake-anim');
+      lockNotice.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    return;
+  }
+  switchModalTab('fallback');
+}
+
+function switchModalTab(tabName) {
+  const emailTab = document.getElementById('tabContentEmail');
+  const fallbackTab = document.getElementById('tabContentFallback');
+  const btnEmail = document.getElementById('tabBtnEmail');
+  const btnFallback = document.getElementById('tabBtnFallback');
+
+  if (tabName === 'fallback') {
+    if (!isFallbackUnlocked) {
+      handleFallbackTabClick();
+      return;
+    }
+    emailTab.style.display = 'none';
+    fallbackTab.style.display = 'block';
+    btnEmail.classList.remove('active');
+    btnFallback.classList.add('active');
+  } else {
+    emailTab.style.display = 'block';
+    fallbackTab.style.display = 'none';
+    btnEmail.classList.add('active');
+    btnFallback.classList.remove('active');
+  }
+}
+
+// 4. Modal Open/Close Controls
+function openForgotModal() {
+  const modal = document.getElementById('forgotModal');
+  if (modal) {
+    modal.style.display = 'flex';
+    setTimeout(() => {
+      const inp = document.getElementById('forgotEmailInput');
+      if (inp && inp.offsetParent !== null) inp.focus();
+    }, 100);
+  }
+}
+
+function closeForgotModal() {
+  const modal = document.getElementById('forgotModal');
+  if (modal) modal.style.display = 'none';
+}
+
+function handleBackdropClick(e) {
+  if (e.target.id === 'forgotModal') closeForgotModal();
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeForgotModal();
+});
+
+// 5. 30-Second Cooldown Live Countdown Timer
+let cooldownRemaining = 0;
+const btnEmailSubmit = document.getElementById('btnEmailSubmit');
+const btnEmailText = document.getElementById('btnEmailText');
+
+function updateCooldownTimer() {
+  if (!btnEmailSubmit || !btnEmailText) return;
+  if (cooldownRemaining > 0) {
+    btnEmailSubmit.disabled = true;
+    btnEmailText.innerText = '⏳ ' + cooldownRemaining + ' સેકન્ડ રાહ જુઓ...';
+    cooldownRemaining--;
+    setTimeout(updateCooldownTimer, 1000);
+  } else {
+    btnEmailSubmit.disabled = false;
+    btnEmailText.innerText = 'ઇમેઇલ પર રીસેટ લિંક મોકલો';
+  }
+}
+
+if (cooldownRemaining > 0) {
+  updateCooldownTimer();
+}
+
+// Start timer on email submit
+const emailResetForm = document.getElementById('emailResetForm');
+if (emailResetForm) {
+  emailResetForm.addEventListener('submit', function() {
+    if (cooldownRemaining <= 0) {
+      cooldownRemaining = 30;
+      setTimeout(updateCooldownTimer, 50);
+    }
+  });
+}
+</script>
+
+
+<script>
+function handleLogin(e) {
+  e.preventDefault();
+  var form = document.getElementById("loginForm");
+  if (!form) return false;
+  var identity = form.querySelector("[name=login_identity], #loginIdentity, input[type=text], input[type=email]");
+  var password = form.querySelector("[name=password], #password, input[type=password]");
+  var user = identity ? identity.value.trim() : "admin";
+  var pass = password ? password.value : "digitalshala";
+  var btn = form.querySelector(".btn-submit-login, button[type=submit]");
+  if (btn) { btn.disabled = true; btn.innerHTML = "<span>⏳ લોગિન થઈ રહ્યું છે...</span>"; }
+
+  if (typeof google !== "undefined" && google.script && google.script.run) {
+    google.script.run
+      .withSuccessHandler(function(res) {
+        if (res && res.success) {
+          if (res.spreadsheetId) {
+            try { sessionStorage.setItem("ds_spreadsheetId", res.spreadsheetId); sessionStorage.setItem("ds_schoolName", res.schoolName || ""); } catch(e) {}
+          }
+          window.location.href = "Dashboard.html";
+        } else {
+          alert(res ? res.message : "❌ લોગિન નિષ્ફળ");
+          if (btn) { btn.disabled = false; btn.innerHTML = "<span>Login</span>"; }
+        }
+      })
+      .withFailureHandler(function(err) {
+        alert("❌ ભૂલ: " + (err.message || err));
+        if (btn) { btn.disabled = false; btn.innerHTML = "<span>Login</span>"; }
+      })
+      .checkLogin(user, pass);
+  } else {
+    // Demo fallback (outside GAS)
+    if (user === "admin" && pass === "digitalshala") {
+      window.location.href = "Dashboard.html";
+    } else {
+      alert("❌ ખોટું યુઝરનેમ અથવા પાસવર્ડ\nDefault: admin / digitalshala");
+      if (btn) { btn.disabled = false; btn.innerHTML = "<span>Login</span>"; }
+    }
+  }
+  return false;
+}
+</script>
+
+
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script>
+/* Digital Shala – GitHub Pages bridge: google.script.run → GAS API */
+(function(){
+  if (typeof google === 'undefined') { window.google = {}; }
+  if (!google.script) google.script = {};
+  function runner(){
+    var success = null, failure = null, method = null, args = [];
+    var api = {
+      withSuccessHandler: function(fn){ success = fn; return api; },
+      withFailureHandler: function(fn){ failure = fn; return api; }
+    };
+    // proxy methods
+    ['checkLogin','registerSchool','getDashboardStats','getStudents','getClasses',
+     'getSubjects','getMarks','getToppers','getSchoolInfo','saveSchoolInfo',
+     'addStudent','saveMarks','getIndicators','getResultSheet','initDatabase'].forEach(function(name){
+      Object.defineProperty(api, name, {
+        get: function(){
+          return function(){
+            var a = Array.prototype.slice.call(arguments);
+            callApi(name, a, success, failure);
+          };
+        }
+      });
+    });
+    return api;
+  }
+  function callApi(name, args, success, failure){
+    var payload = { action: mapAction(name) };
+    if (name === 'checkLogin') { payload.mobile = args[0]; payload.password = args[1]; }
+    else if (name === 'registerSchool') { Object.assign(payload, normalizeReg(args[0]||{})); }
+    else if (name === 'getStudents' || name === 'getSubjects' || name === 'getIndicators') { payload.classId = args[0]; }
+    else if (name === 'getMarks') { payload.studentId = args[0]; payload.examType = args[1]; }
+    else if (name === 'getToppers') { payload.classId = args[0]; payload.limit = args[1]; }
+    else if (name === 'getResultSheet') { payload.classId = args[0]; payload.examType = args[1]; }
+    else if (name === 'addStudent' || name === 'saveSchoolInfo') { Object.assign(payload, args[0]||{}); }
+    else if (name === 'saveMarks') { payload.marks = args[0]; }
+    apiCall(payload.action, payload).then(function(r){
+      // normalize for old success handlers expecting success boolean
+      if (r && r.ok !== undefined && r.success === undefined) r.success = r.ok;
+      if (r && r.msg && !r.message) r.message = r.msg;
+      if (success) success(r);
+    }).catch(function(e){ if (failure) failure(e); else alert(e.message||e); });
+  }
+  function mapAction(name){
+    var m = {
+      checkLogin:'login', registerSchool:'register', getDashboardStats:'dashboard',
+      getStudents:'students', getClasses:'classes', getSubjects:'subjects',
+      getMarks:'marks', getToppers:'toppers', getSchoolInfo:'info',
+      saveSchoolInfo:'save-school', addStudent:'add-student', saveMarks:'save-marks',
+      getIndicators:'indicators', getResultSheet:'result', initDatabase:'init'
+    };
+    return m[name] || name;
+  }
+  function normalizeReg(d){
+    return {
+      schoolName: d.school_name || d.schoolName || '',
+      mobile: d.phone || d.mobile || '',
+      udise: d.udise || '',
+      email: d.email || '',
+      password: d.admin_password || d.password || '',
+      academic_year: d.academic_year || '',
+      principal: d.principal || '',
+      address: d.address || '',
+      referral_code: d.referral_code || ''
+    };
+  }
+  google.script.run = runner();
+})();
+</script>
+
+</body>
+</html>
